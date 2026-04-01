@@ -813,9 +813,9 @@ enum DHTtype {
 }
 
 enum dataType {
-    //% block="humidity"
+    //% block="feuchtigkeit"
     humidity,
-    //% block="temperature"
+    //% block="temperatur"
     temperature,
 }
 
@@ -839,12 +839,11 @@ namespace dht11_dht22 {
     * Query data from DHT11/DHT22 sensor. If you are using 4 pins/no PCB board versions, you'll need to pull up the data pin. 
     * It is also recommended to wait 1 (DHT11) or 2 (DHT22) seconds between each query.
     */
-    //% block="Query $DHT|Data pin $dataPin|Pin pull up $pullUp|Serial output $serialOtput|Wait 2 sec after query $wait"
-    //% pullUp.defl=true
+    //% block="Daten von $DHT|Daten pin $dataPin|Serielle Ausgabe $serialOtput|warte 2 sekunden nach datenerhalt $wait"
     //% serialOtput.defl=false
     //% wait.defl=true
     //% blockExternalInputs=true
-    export function queryData(DHT: DHTtype, dataPin: DigitalPin, pullUp: boolean, serialOtput: boolean, wait: boolean) {
+    export function queryData(DHT: DHTtype, dataPin: DigitalPin, serialOtput: boolean, wait: boolean) {
 
         //initialize
         let startTime: number = 0
@@ -868,9 +867,7 @@ namespace dht11_dht22 {
         pins.digitalWritePin(dataPin, 0) //begin protocol, pull down pin
         basic.pause(18)
 
-        if (pullUp) pins.setPull(dataPin, PinPullMode.PullUp) //pull up data pin if needed
-        pins.digitalReadPin(dataPin) //pull up pin
-        control.waitMicros(40)
+
 
         if (pins.digitalReadPin(dataPin) == 1) {
             if (serialOtput) {
@@ -951,7 +948,7 @@ namespace dht11_dht22 {
     /**
     * Read humidity/temperature data from lastest query of DHT11/DHT22
     */
-    //% block="Read $data"
+    //% block="Lese $data"
     export function readData(data: dataType): number {
         return data == dataType.humidity ? _humidity : _temperature
     }
