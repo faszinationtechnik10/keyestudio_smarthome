@@ -1,4 +1,4 @@
-/**
+ /**
  * Functions are mapped to blocks using various macros
  * in comments starting with %. The most important macro
  * is "block", and it specifies that a block should be
@@ -78,7 +78,7 @@ namespace neopixel {
          * Shows all LEDs to a given color (range 0-255 for r, g, b).
          * @param rgb RGB color of the LED
          */
-        //% blockId="neopixel_set_strip_color" block="%strip|zeige color %rgb=neopixel_colors"
+        //% blockId="neopixel_set_strip_farbe" block="%strip|zeige farbe %rgb=neopixel_colors"
         //% strip.defl=strip
         //% weight=85 blockGap=8
         //% parts="neopixel"
@@ -199,7 +199,7 @@ namespace neopixel {
          * @param pixeloffset position of the NeoPixel in the strip
          * @param rgb RGB color of the LED
          */
-        //% blockId="setze_pixel_farbe" block="%strip|setze Pixel auf Farbe %pixeloffset|bis %rgb=neopixel_colors"
+        //% blockId="setze_pixel_farbe" block="%strip|setze Pixel an %pixeloffset|auf Farbe %rgb=neopixel_colors"
         //% strip.defl=strip
         //% blockGap=8
         //% weight=80
@@ -212,7 +212,7 @@ namespace neopixel {
          * Sets the number of pixels in a matrix shaped strip
          * @param width number of pixels in a row
          */
-        //% blockId=neopixel_setze_matrix_länge block="%strip|setze matrix länge %width"
+        //% blockId=neopixel_setze_matrix_länge block="%strip|setze matrix länge auf %width"
         //% strip.defl=strip
         //% blockGap=8
         //% weight=5
@@ -307,33 +307,6 @@ namespace neopixel {
             this.brightness = brightness & 0xff;
         }
 
-        /**
-         * Apply brightness to current colors using a quadratic easing function.
-         **/
-        //% blockId="neopixel_each_brightness" block="%strip|ease brightness" blockGap=8
-        //% strip.defl=strip
-        //% weight=58
-        //% parts="neopixel" advanced=true
-        easeBrightness(): void {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            const br = this.brightness;
-            const buf = this.buf;
-            const end = this.start + this._length;
-            const mid = Math.idiv(this._length, 2);
-            for (let i = this.start; i < end; ++i) {
-                const k = i - this.start;
-                const ledoffset = i * stride;
-                const br = k > mid
-                    ? Math.idiv(255 * (this._length - 1 - k) * (this._length - 1 - k), (mid * mid))
-                    : Math.idiv(255 * k * k, (mid * mid));
-                const r = (buf[ledoffset + 0] * br) >> 8; buf[ledoffset + 0] = r;
-                const g = (buf[ledoffset + 1] * br) >> 8; buf[ledoffset + 1] = g;
-                const b = (buf[ledoffset + 2] * br) >> 8; buf[ledoffset + 2] = b;
-                if (stride == 4) {
-                    const w = (buf[ledoffset + 3] * br) >> 8; buf[ledoffset + 3] = w;
-                }
-            }
-        }
 
         /**
          * Create a range of LEDs.
