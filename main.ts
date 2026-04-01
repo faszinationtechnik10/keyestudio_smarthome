@@ -6,46 +6,42 @@
  */
 
 //% color="#AA278D" weight=100
-namespace hello {
+//namespace hello {
     //% block
-    export function helloWorld() {
+    //export function helloWorld() {
 
-    }
+    //}
 
     // note that Caml casing yields lower case
     // block text with spaces
 
     //% block
-    export function camlCaseTwo() {
+    //export function camlCaseTwo() {
 
-    }
-}
+    //}
+//}
 
 
 /**
  * Well known colors for a NeoPixel strip
  */
 enum NeoPixelColors {
-    //% block=red
-    Red = 0xFF0000,
-    //% block=orange
+    //% block=Rot
+    Rot = 0xFF0000,
+    //% block=Orange
     Orange = 0xFFA500,
-    //% block=yellow
-    Yellow = 0xFFFF00,
-    //% block=green
-    Green = 0x00FF00,
-    //% block=blue
-    Blue = 0x0000FF,
-    //% block=indigo
-    Indigo = 0x4b0082,
-    //% block=violet
-    Violet = 0x8a2be2,
-    //% block=purple
-    Purple = 0xFF00FF,
-    //% block=white
-    White = 0xFFFFFF,
-    //% block=black
-    Black = 0x000000
+    //% block=Gelb
+    Gelb = 0xFFFF00,
+    //% block=Gruen
+    Gruen = 0x00FF00,
+    //% block=Blau
+    Blau = 0x0000FF,
+    //% block=violett
+    Violett = 0x8a2be2,
+    //% block=weiss
+    Weiss = 0xFFFFFF,
+    //% block=schwarz
+    Schwwarz = 0x000000
 }
 
 /**
@@ -165,14 +161,14 @@ namespace neopixel {
          * @param high maximum value, eg: 255
          */
         //% weight=84
-        //% blockId=neopixel_show_bar_graph block="%strip|show bar graph of %value|up to %high"
+        //% blockId=neopixel_zeige_säulen_diagramm block="%strip|zeige säulendiagramm von %value|bis %high"
         //% strip.defl=strip
         //% icon="\uf080"
         //% parts="neopixel"
         showBarGraph(value: number, high: number): void {
             if (high <= 0) {
                 this.clear();
-                this.setPixelColor(0, NeoPixelColors.Yellow);
+                this.setPixelColor(0, NeoPixelColors.Gelb);
                 this.show();
                 return;
             }
@@ -203,7 +199,7 @@ namespace neopixel {
          * @param pixeloffset position of the NeoPixel in the strip
          * @param rgb RGB color of the LED
          */
-        //% blockId="neopixel_set_pixel_color" block="%strip|setze Pixel auf Farbe %pixeloffset|to %rgb=neopixel_colors"
+        //% blockId="setze_pixel_farbe" block="%strip|setze Pixel auf Farbe %pixeloffset|bis %rgb=neopixel_colors"
         //% strip.defl=strip
         //% blockGap=8
         //% weight=80
@@ -216,7 +212,7 @@ namespace neopixel {
          * Sets the number of pixels in a matrix shaped strip
          * @param width number of pixels in a row
          */
-        //% blockId=neopixel_set_matrix_width block="%strip|set matrix width %width"
+        //% blockId=neopixel_setze_matrix_länge block="%strip|setze matrix länge %width"
         //% strip.defl=strip
         //% blockGap=8
         //% weight=5
@@ -232,7 +228,7 @@ namespace neopixel {
          * @param y horizontal position
          * @param rgb RGB color of the LED
          */
-        //% blockId="neopixel_set_matrix_color" block="%strip|set matrix color at x %x|y %y|to %rgb=neopixel_colors"
+        //% blockId="neopixel_set_matrix_color" block="%strip|setze matrix farbe an x %x|y %y|bis %rgb=neopixel_colors"
         //% strip.defl=strip
         //% weight=4
         //% parts="neopixel" advanced=true
@@ -252,7 +248,7 @@ namespace neopixel {
          * @param pixeloffset position of the LED in the strip
          * @param white brightness of the white LED
          */
-        //% blockId="neopixel_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white"
+        //% blockId="neopixel_set_pixel_white" block="%strip|setze weisse LED an %pixeloffset|auf %white"
         //% strip.defl=strip
         //% blockGap=8
         //% weight=80
@@ -266,7 +262,7 @@ namespace neopixel {
         /**
          * Send all the changes to the strip.
          */
-        //% blockId="neopixel_show" block="%strip|show" blockGap=8
+        //% blockId="neopixel_zeige" block="%strip|zeige" blockGap=8
         //% strip.defl=strip
         //% weight=79
         //% parts="neopixel"
@@ -292,7 +288,7 @@ namespace neopixel {
         /**
          * Gets the number of pixels declared on the strip
          */
-        //% blockId="neopixel_length" block="%strip|length" blockGap=8
+        //% blockId="neopixel_länge" block="%strip|länge" blockGap=8
         //% strip.defl=strip
         //% weight=60 advanced=true
         length() {
@@ -303,7 +299,7 @@ namespace neopixel {
          * Set the brightness of the strip. This flag only applies to future operation.
          * @param brightness a measure of LED brightness in 0-255. eg: 255
          */
-        //% blockId="neopixel_set_brightness" block="%strip|set brightness %brightness" blockGap=8
+        //% blockId="neopixel_setze_helligkeit" block="%strip|setze helligkeit auf %brightness" blockGap=8
         //% strip.defl=strip
         //% weight=59
         //% parts="neopixel" advanced=true
