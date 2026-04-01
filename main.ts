@@ -1,30 +1,3 @@
- /**
- * Functions are mapped to blocks using various macros
- * in comments starting with %. The most important macro
- * is "block", and it specifies that a block should be
- * generated for an **exported** function.
- */
-
-//% color="#AA278D" weight=100
-//namespace hello {
-    //% block
-    //export function helloWorld() {
-
-    //}
-
-    // note that Caml casing yields lower case
-    // block text with spaces
-
-    //% block
-    //export function camlCaseTwo() {
-
-    //}
-//}
-
-
-/**
- * Well known colors for a NeoPixel strip
- */
 enum NeoPixelColors {
     //% block=Rot
     Rot = 0xFF0000,
@@ -43,10 +16,6 @@ enum NeoPixelColors {
     //% block=schwarz
     Schwwarz = 0x000000
 }
-
-/**
- * Different modes for RGB or RGB+W NeoPixel strips
- */
 enum NeoPixelMode {
     //% block="RGB (GRB format)"
     RGB = 1,
@@ -55,11 +24,6 @@ enum NeoPixelMode {
     //% block="RGB (RGB format)"
     RGB_RGB = 3
 }
-
-/**
- * Functions to operate NeoPixel strips.
- */
-//% weight=5 color=#2699BF icon="\uf110"
 namespace neopixel {
     /**
      * A NeoPixel strip
@@ -179,15 +143,15 @@ namespace neopixel {
             let v = Math.idiv((value * n), high);
             if (v == 0) {
                 this.setPixelColor(0, 0x666600);
-                for (let i = 1; i < n; ++i)
-                    this.setPixelColor(i, 0);
+                for (let j = 1; j < n; ++j)
+                    this.setPixelColor(j, 0);
             } else {
-                for (let i = 0; i < n; ++i) {
-                    if (i <= v) {
-                        const b = Math.idiv(i * 255, n1);
-                        this.setPixelColor(i, neopixel.rgb(b, 0, 255 - b));
+                for (let k = 0; k < n; ++k) {
+                    if (k <= v) {
+                        const b = Math.idiv(k * 255, n1);
+                        this.setPixelColor(k, neopixel.rgb(b, 0, 255 - b));
                     }
-                    else this.setPixelColor(i, 0);
+                    else this.setPixelColor(k, 0);
                 }
             }
             this.show();
@@ -239,8 +203,8 @@ namespace neopixel {
             rgb = rgb >> 0;
             const cols = Math.idiv(this._length, this._matrixWidth);
             if (x < 0 || x >= this._matrixWidth || y < 0 || y >= cols) return;
-            let i = x + y * this._matrixWidth;
-            this.setPixelColor(i, rgb);
+            let m = x + y * this._matrixWidth;
+            this.setPixelColor(m, rgb);
         }
 
         /**
@@ -343,8 +307,8 @@ namespace neopixel {
         //% parts="neopixel"
         shift(offset: number = 1): void {
             offset = offset >> 0;
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
+            const stride2 = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            this.buf.shift(-offset * stride2, this.start * stride2, this._length * stride2)
         }
 
         /**
@@ -358,8 +322,8 @@ namespace neopixel {
         //% parts="neopixel"
         rotate(offset: number = 1): void {
             offset = offset >> 0;
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
+            const stride3 = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            this.buf.rotate(-offset * stride3, this.start * stride3, this._length * stride3)
         }
 
         /**
@@ -380,13 +344,13 @@ namespace neopixel {
         //% strip.defl=strip
         //% advanced=true
         power(): number {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const stride4 = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             const end = this.start + this._length;
             let p = 0;
-            for (let i = this.start; i < end; ++i) {
-                const ledoffset = i * stride;
-                for (let j = 0; j < stride; ++j) {
-                    p += this.buf[i + j];
+            for (let o = this.start; o < end; ++o) {
+                const ledoffset = o * stride4;
+                for (let q = 0; q < stride4; ++q) {
+                    p += this.buf[o + q];
                 }
             }
             return Math.idiv(this.length() * 7, 10) /* 0.7mA per neopixel */
@@ -415,25 +379,25 @@ namespace neopixel {
                 green = (green * br) >> 8;
                 blue = (blue * br) >> 8;
             }
-            const end = this.start + this._length;
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            for (let i = this.start; i < end; ++i) {
-                this.setBufferRGB(i * stride, red, green, blue)
+            const end2 = this.start + this._length;
+            const stride5 = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            for (let r = this.start; r < end2; ++r) {
+                this.setBufferRGB(r * stride5, red, green, blue)
             }
         }
         private setAllW(white: number) {
             if (this._mode !== NeoPixelMode.RGBW)
                 return;
 
-            let br = this.brightness;
-            if (br < 255) {
-                white = (white * br) >> 8;
+            let br2 = this.brightness;
+            if (br2 < 255) {
+                white = (white * br2) >> 8;
             }
             let buf = this.buf;
-            let end = this.start + this._length;
-            for (let i = this.start; i < end; ++i) {
-                let ledoffset = i * 4;
-                buf[ledoffset + 3] = white;
+            let end3 = this.start + this._length;
+            for (let t = this.start; t < end3; ++t) {
+                let ledoffset2 = t * 4;
+                buf[ledoffset2 + 3] = white;
             }
         }
         private setPixelRGB(pixeloffset: number, rgb: number): void {
@@ -441,20 +405,20 @@ namespace neopixel {
                 || pixeloffset >= this._length)
                 return;
 
-            let stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
-            pixeloffset = (pixeloffset + this.start) * stride;
+            let stride6 = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            pixeloffset = (pixeloffset + this.start) * stride6;
 
-            let red = unpackR(rgb);
-            let green = unpackG(rgb);
-            let blue = unpackB(rgb);
+            let red2 = unpackR(rgb);
+            let green2 = unpackG(rgb);
+            let blue2 = unpackB(rgb);
 
-            let br = this.brightness;
-            if (br < 255) {
-                red = (red * br) >> 8;
-                green = (green * br) >> 8;
-                blue = (blue * br) >> 8;
+            let br3 = this.brightness;
+            if (br3 < 255) {
+                red2 = (red2 * br3) >> 8;
+                green2 = (green2 * br3) >> 8;
+                blue2 = (blue2 * br3) >> 8;
             }
-            this.setBufferRGB(pixeloffset, red, green, blue)
+            this.setBufferRGB(pixeloffset, red2, green2, blue2)
         }
         private setPixelW(pixeloffset: number, white: number): void {
             if (this._mode !== NeoPixelMode.RGBW)
@@ -466,12 +430,12 @@ namespace neopixel {
 
             pixeloffset = (pixeloffset + this.start) * 4;
 
-            let br = this.brightness;
-            if (br < 255) {
-                white = (white * br) >> 8;
+            let br4 = this.brightness;
+            if (br4 < 255) {
+                white = (white * br4) >> 8;
             }
-            let buf = this.buf;
-            buf[pixeloffset + 3] = white;
+            let buf2 = this.buf;
+            buf2[pixeloffset + 3] = white;
         }
     }
 
@@ -486,16 +450,16 @@ namespace neopixel {
     //% trackArgs=0,2
     //% blockSetVariable=strip
     export function create(pin: DigitalPin, numleds: number, mode: NeoPixelMode): Strip {
-        let strip = new Strip();
-        let stride = mode === NeoPixelMode.RGBW ? 4 : 3;
-        strip.buf = pins.createBuffer(numleds * stride);
-        strip.start = 0;
-        strip._length = numleds;
-        strip._mode = mode || NeoPixelMode.RGB;
-        strip._matrixWidth = 0;
-        strip.setBrightness(128)
-        strip.setPin(pin)
-        return strip;
+        let strip2 = new Strip();
+        let stride7 = mode === NeoPixelMode.RGBW ? 4 : 3;
+        strip2.buf = pins.createBuffer(numleds * stride7);
+        strip2.start = 0;
+        strip2._length = numleds;
+        strip2._mode = mode || NeoPixelMode.RGB;
+        strip2._matrixWidth = 0;
+        strip2.setBrightness(128)
+        strip2.setPin(pin)
+        return strip2;
     }
 
     /**
@@ -525,16 +489,16 @@ namespace neopixel {
         return ((a & 0xFF) << 16) | ((b & 0xFF) << 8) | (c & 0xFF);
     }
     function unpackR(rgb: number): number {
-        let r = (rgb >> 16) & 0xFF;
-        return r;
+        let u = (rgb >> 16) & 0xFF;
+        return u;
     }
     function unpackG(rgb: number): number {
         let g = (rgb >> 8) & 0xFF;
         return g;
     }
     function unpackB(rgb: number): number {
-        let b = (rgb) & 0xFF;
-        return b;
+        let c = (rgb) & 0xFF;
+        return c;
     }
 
     /**
@@ -552,32 +516,32 @@ namespace neopixel {
         h = h % 360;
         s = Math.clamp(0, 99, s);
         l = Math.clamp(0, 99, l);
-        let c = Math.idiv((((100 - Math.abs(2 * l - 100)) * s) << 8), 10000); //chroma, [0,255]
-        let h1 = Math.idiv(h, 60);//[0,6]
-        let h2 = Math.idiv((h - h1 * 60) * 256, 60);//[0,255]
-        let temp = Math.abs((((h1 % 2) << 8) + h2) - 256);
-        let x = (c * (256 - (temp))) >> 8;//[0,255], second largest component of this color
+        let d = Math.idiv((((100 - Math.abs(2 * l - 100)) * s) << 8), 10000); //chroma, [0,255]
+        let h12 = Math.idiv(h, 60);//[0,6]
+        let h22 = Math.idiv((h - h12 * 60) * 256, 60);//[0,255]
+        let temp = Math.abs((((h12 % 2) << 8) + h22) - 256);
+        let x = (d * (256 - (temp))) >> 8;//[0,255], second largest component of this color
         let r$: number;
         let g$: number;
         let b$: number;
-        if (h1 == 0) {
-            r$ = c; g$ = x; b$ = 0;
-        } else if (h1 == 1) {
-            r$ = x; g$ = c; b$ = 0;
-        } else if (h1 == 2) {
-            r$ = 0; g$ = c; b$ = x;
-        } else if (h1 == 3) {
-            r$ = 0; g$ = x; b$ = c;
-        } else if (h1 == 4) {
-            r$ = x; g$ = 0; b$ = c;
-        } else if (h1 == 5) {
-            r$ = c; g$ = 0; b$ = x;
+        if (h12 == 0) {
+            r$ = d; g$ = x; b$ = 0;
+        } else if (h12 == 1) {
+            r$ = x; g$ = d; b$ = 0;
+        } else if (h12 == 2) {
+            r$ = 0; g$ = d; b$ = x;
+        } else if (h12 == 3) {
+            r$ = 0; g$ = x; b$ = d;
+        } else if (h12 == 4) {
+            r$ = x; g$ = 0; b$ = d;
+        } else if (h12 == 5) {
+            r$ = d; g$ = 0; b$ = x;
         }
-        let m = Math.idiv((Math.idiv((l * 2 << 8), 100) - c), 2);
-        let r = r$ + m;
-        let g = g$ + m;
-        let b = b$ + m;
-        return packRGB(r, g, b);
+        let w = Math.idiv((Math.idiv((l * 2 << 8), 100) - d), 2);
+        let a = r$ + w;
+        let e = g$ + w;
+        let f = b$ + w;
+        return packRGB(a, e, f);
     }
 
     export enum HueInterpolationDirection {
@@ -586,17 +550,6 @@ namespace neopixel {
         Shortest
     }
 }
-
-/**
-* makecode I2C LCD1602 package for microbit.
-* From microbit/micropython Chinese community.
-* http://www.micropython.org.cn
-*/
-
-/**
- * Custom blocks
- */
-//% weight=20 color=#0fbc11 icon="▀"
 namespace I2C_LCD1602 {
     let i2cAddr: number // 0x3F: PCF8574A, 0x27: PCF8574
     let BK: number      // backlight control
@@ -633,29 +586,29 @@ namespace I2C_LCD1602 {
 
     // auto get LCD address
     function AutoAddr() {
-        let k = true
+        let k2 = true
         let addr = 0x20
         let d1 = 0, d2 = 0
-        while (k && (addr < 0x28)) {
+        while (k2 && (addr < 0x28)) {
             pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
             d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
             pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
             d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-            if ((d1 == 7) && (d2 == 0)) k = false
+            if ((d1 == 7) && (d2 == 0)) k2 = false
             else addr += 1
         }
-        if (!k) return addr
+        if (!k2) return addr
 
         addr = 0x38
-        while (k && (addr < 0x40)) {
+        while (k2 && (addr < 0x40)) {
             pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
             d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
             pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
             d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-            if ((d1 == 7) && (d2 == 0)) k = false
+            if ((d1 == 7) && (d2 == 0)) k2 = false
             else addr += 1
         }
-        if (!k) return addr
+        if (!k2) return addr
         else return 0
 
     }
@@ -696,8 +649,8 @@ namespace I2C_LCD1602 {
     //% y.min=0 y.max=1
     //% parts=LCD1602_I2C trackArgs=0
     export function ShowNumber(n: number, x: number, y: number): void {
-        let s = n.toString()
-        ShowString(s, x, y)
+        let s3 = n.toString()
+        ShowString(s3, x, y)
     }
 
     /**
@@ -712,17 +665,17 @@ namespace I2C_LCD1602 {
     //% y.min=0 y.max=1
     //% parts=LCD1602_I2C trackArgs=0
     export function ShowString(s: string, x: number, y: number): void {
-        let a: number
+        let a2: number
 
         if (y > 0)
-            a = 0xC0
+            a2 = 0xC0
         else
-            a = 0x80
-        a += x
-        cmd(a)
+            a2 = 0x80
+        a2 += x
+        cmd(a2)
 
-        for (let i = 0; i < s.length; i++) {
-            dat(s.charCodeAt(i))
+        for (let i2 = 0; i2 < s.length; i2++) {
+            dat(s.charCodeAt(i2))
         }
     }
 
@@ -798,35 +751,24 @@ namespace I2C_LCD1602 {
         cmd(0x1C)
     }
 }
-
-
-/**
- * MakeCode editor extension for DHT11 and DHT22 humidity/temperature sensors
- * by Alan Wang
- */
-
 enum DHTtype {
     //% block="DHT11"
     DHT11,
     //% block="DHT22"
     DHT22,
 }
-
 enum dataType {
     //% block="feuchtigkeit"
     humidity,
     //% block="temperatur"
     temperature,
 }
-
 enum tempType {
     //% block="Celsius (*C)"
     celsius,
     //% block="Fahrenheit (*F)"
     fahrenheit,
 }
-
-//% block="DHT11/DHT22" weight=100 color=#ff8f3f icon="\uf043"
 namespace dht11_dht22 {
 
     let _temperature: number = -999.0
@@ -855,7 +797,7 @@ namespace dht11_dht22 {
         let DHTstr: string = (DHT == DHTtype.DHT11) ? "DHT11" : "DHT22"
 
         for (let index = 0; index < 40; index++) dataArray.push(false)
-        for (let index = 0; index < 5; index++) resultArray.push(0)
+        for (let index2 = 0; index2 < 5; index2++) resultArray.push(0)
 
         _humidity = -999.0
         _temperature = -999.0
@@ -883,20 +825,20 @@ namespace dht11_dht22 {
             while (pins.digitalReadPin(dataPin) == 1); //sensor response
 
             //read data (5 bytes)
-            for (let index = 0; index < 40; index++) {
+            for (let index3 = 0; index3 < 40; index3++) {
                 while (pins.digitalReadPin(dataPin) == 1);
                 while (pins.digitalReadPin(dataPin) == 0);
                 control.waitMicros(28)
                 //if sensor still pull up data pin after 28 us it means 1, otherwise 0
-                if (pins.digitalReadPin(dataPin) == 1) dataArray[index] = true
+                if (pins.digitalReadPin(dataPin) == 1) dataArray[index3] = true
             }
 
             endTime = input.runningTimeMicros()
 
             //convert byte number array to integer
-            for (let index = 0; index < 5; index++)
-                for (let index2 = 0; index2 < 8; index2++)
-                    if (dataArray[8 * index + index2]) resultArray[index] += 2 ** (7 - index2)
+            for (let index4 = 0; index4 < 5; index4++)
+                for (let index22 = 0; index22 < 8; index22++)
+                    if (dataArray[8 * index4 + index22]) resultArray[index4] += 2 ** (7 - index22)
 
             //verify checksum
             checksumTmp = resultArray[0] + resultArray[1] + resultArray[2] + resultArray[3]
