@@ -956,7 +956,7 @@ namespace dht11_dht22 {
     /**
     * Select temperature type (Celsius/Fahrenheit)"
     */
-    //% block="Temperature type: $temp" advanced=true
+    //% block="Temperatur Typ: $temp" advanced=true
     export function selectTempType(temp: tempType) {
         _temptype = temp
     }
@@ -964,17 +964,17 @@ namespace dht11_dht22 {
     /**
     * Determind if last query is successful (checksum ok)
     */
-    //% block="Last query successful?"
-    export function readDataSuccessful(): boolean {
-        return _readSuccessful
-    }
+    //% block="Letzte Abfrage erfolgreich?"
+    //export function readDataSuccessful(): boolean {
+        //return _readSuccessful
+    //}
 
     /**
     * Determind if sensor responded successfully (not disconnected, etc) in last query
     */
     //% block="Last query sensor responding?" advanced=true
-    export function sensorrResponding(): boolean {
-        return _sensorresponding
-    }
+    //export function sensorrResponding(): boolean {
+        //return _sensorresponding
+    //}
 
 }
